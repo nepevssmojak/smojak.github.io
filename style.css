@@ -299,3 +299,13 @@ h2{
   .grid2{ grid-template-columns: 1fr; }
   h1{ font-size: 30px; }
 }
+
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #FF0033;
+  font-weight: 800;
+  text-decoration: none;
+}
