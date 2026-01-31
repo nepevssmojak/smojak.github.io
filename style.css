@@ -1,0 +1,301 @@
+:root{
+  --bg: #07070b;
+  --card: rgba(15, 18, 30, 0.72);
+  --cardBorder: rgba(100, 120, 160, 0.22);
+  --text: #f2f4ff;
+  --muted: rgba(242, 244, 255, 0.72);
+  --green: #00ff66;
+}
+
+*{ box-sizing: border-box; }
+body{
+  margin: 0;
+  background: black;
+  overflow: hidden;
+}
+
+/* BACKGROUND IMAGE */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background: url("matrix-city-bg.png") center center / cover no-repeat;
+  z-index: -3;
+}
+
+/* DARK OVERLAY (helps text pop) */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: -2;
+}
+
+/* RAIN CANVAS */
+#matrix{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+html, body{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #000; /* fallback */
+  overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND + FX LAYERS
+   ========================= */
+
+/* Fullscreen background image */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background: url("matrix-city-bg.png") center center / cover no-repeat;
+  filter: saturate(1.05) contrast(1.05);
+  transform: translateZ(0);
+}
+
+/* Dark cinematic overlay to keep text readable */
+body::after{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 50% at 50% 30%, rgba(0,0,0,0.25), rgba(0,0,0,0.78) 70%),
+    linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.85));
+  pointer-events: none;
+}
+
+/* Rain + lightning canvas (fullscreen FX layer)
+   NOTE: Letters are NOT controlled here — they come from the JS.
+*/
+#matrix{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;           /* above background/overlay, below content */
+  display: block;
+  pointer-events: none;
+  background: transparent;
+
+  /* Makes rain read brighter without crushing the background */
+  opacity: 0.78;         /* "medium rain" feel */
+  mix-blend-mode: screen; /* helps streaks pop on dark city */
+}
+
+/* Make sure content sits above FX */
+.wrap{
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 34px 18px 46px;
+}
+
+/* =========================
+   EXISTING SITE STYLES
+   ========================= */
+
+.hero{
+  padding: 18px 18px 8px;
+  border-radius: 18px;
+  background: rgba(0,0,0,0.22);
+  border: 1px solid rgba(0,255,102,0.12);
+  backdrop-filter: blur(8px);
+}
+
+.badge{
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: .12em;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #04150c;
+  background: rgba(0,255,102,0.85);
+  font-weight: 800;
+}
+
+h1{
+  margin: 12px 0 6px;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.titleRow{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.coinLogo{
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.tagline{
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.ctaRow{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.chip{
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(20, 20, 34, 0.45);
+}
+
+.card{
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--cardBorder);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+h2{
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: .02em;
+}
+
+.countdown{
+  font-size: 30px;
+  letter-spacing: .5px;
+  margin: 8px 0 4px;
+}
+
+.small{
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.warn{
+  color: rgba(255, 223, 138, 0.92);
+}
+
+.muted{ color: var(--muted); }
+
+.mono{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.copyRow{
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  margin: 10px 0 12px;
+}
+
+.box{
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.14);
+  word-break: break-all;
+}
+
+.btn{
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,255,102,0.18);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn:active{ transform: translateY(1px); }
+
+.grid2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+
+.mini{
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.miniTitle{
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.launchBtn{
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: .02em;
+  background: rgba(0,255,102,0.22);
+  border: 1px solid rgba(0,255,102,0.35);
+  color: var(--text);
+}
+
+.launchBtn.locked{
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.55);
+  pointer-events: none;
+}
+
+.rules{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(242,244,255,0.82);
+}
+
+.rules li{
+  margin: 6px 0;
+}
+
+.footer{
+  margin-top: 16px;
+  text-align: center;
+}
+
+@media (max-width: 520px){
+  .copyRow{ flex-direction: column; }
+  .grid2{ grid-template-columns: 1fr; }
+  h1{ font-size: 30px; }
+}
